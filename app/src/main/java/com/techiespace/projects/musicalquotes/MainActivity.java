@@ -50,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour_x);
         calendar.set(Calendar.MINUTE, minute_x);
-        myAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pd);
+        if (calendar.before(Calendar.getInstance())) {   //fixed the immediate trigger for past time problem
+            calendar.add(Calendar.DATE, 1);
+        }
+        myAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pd);    //Sets an inexact repeating alarm
     }
 
     public void stopAlarm(View view) {
