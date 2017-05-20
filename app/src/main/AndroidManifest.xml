@@ -12,6 +12,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,9 +23,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.techies.MusicalQuotesScreen" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".FullscreenLyricsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen_lyrics"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
