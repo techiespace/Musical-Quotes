@@ -35,6 +35,20 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
     ImageView img;
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
@@ -71,20 +85,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         @Override
         public void run() {
             hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
         }
     };
 
@@ -182,10 +182,10 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         }
         //generate a random number
         Random imgselect = new Random();
-        int rand1 = imgselect.nextInt(cnt) + 1;
+        int rand1 = imgselect.nextInt(cnt);
         int rand2 = imgselect.nextInt(2) + 1;
         img = (ImageView) findViewById(R.id.fullscreen_content);
-        String imgname = "i" + rand1 + "_" + rand2;
+        String imgname = "i" + generate[rand1] + "_" + rand2;
         Toast.makeText(this, imgname, Toast.LENGTH_SHORT).show();
         img.setImageResource(getResources().getIdentifier(imgname, "drawable", getPackageName()));
     }
