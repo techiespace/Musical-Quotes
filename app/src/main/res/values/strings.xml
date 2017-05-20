@@ -7,4 +7,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="dummyimage">DummyImage</string>
+    <string name="justin_biber">Justin Beber</string>
+    <string name="katy_perry">Katy Perry</string>
+    <string name="passenger">Passenger</string>
+    <string name="taylor_swift">Taylor Swift</string>
+    <string name="ed_sheerin">Ed Sheerin</string>
+    <string name="select_singer">Select Singer</string>
 </resources>

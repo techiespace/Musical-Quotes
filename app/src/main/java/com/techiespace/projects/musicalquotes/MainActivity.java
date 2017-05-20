@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor myedit = sh.edit();
         myedit.putInt("h", hour_x);
         myedit.putInt("m", minute_x);
-        myedit.commit();
+        myedit.apply();     //`commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background
+    }
+
+    public void singerActivity(View view) {
+        Intent singerlistintent = new Intent(this, SingerList.class);
+        startActivity(singerlistintent);
     }
 }
