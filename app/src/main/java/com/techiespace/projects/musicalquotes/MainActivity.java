@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i1 = new Intent();
         i1.setAction("com.techies.MusicalQuotesScreen");
         i1.addCategory("android.intent.category.DEFAULT");
-        PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, 0);
+        PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Set the alarm to start at approximately 6:00 p.m.
         Calendar calendar = Calendar.getInstance();
@@ -56,13 +57,30 @@ public class MainActivity extends AppCompatActivity {
         Intent i1 = new Intent();
         i1.setAction("com.techies.MusicalQuotesScreen");
         i1.addCategory("android.intent.category.DEFAULT");
-        PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, 0);
+        PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, PendingIntent.FLAG_UPDATE_CURRENT);
         myAlarmManager.cancel(pd);
         Toast.makeText(this, "Alarm Stopped", Toast.LENGTH_SHORT).show();
     }
 
     public void setAlarm(View view) {
-        new TimePickerDialog(MainActivity.this, kTimePickerListener, 10, 10, false).show();
+        new TimePickerDialog(MainActivity.this, kTimePickerListener, hour_x, minute_x, false).show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sh1 = getSharedPreferences("MyOwnShared", MODE_APPEND);
+        hour_x = sh1.getInt("h", 0);
+        minute_x = sh1.getInt("m", 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_PRIVATE);
+        SharedPreferences.Editor myedit = sh.edit();
+        myedit.putInt("h", hour_x);
+        myedit.putInt("m", minute_x);
+        myedit.commit();
+    }
 }
