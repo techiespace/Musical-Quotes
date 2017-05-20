@@ -1,36 +1,41 @@
 package com.techiespace.projects.musicalquotes;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenLyricsActivity extends AppCompatActivity {
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
-
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    ImageView img;
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -106,6 +111,7 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        getimage();
     }
 
     @Override
@@ -159,5 +165,28 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    public void getimage() {
+        int cnt = 0;
+        int generate[] = new int[5];
+        //boolean selected[]= new boolean[2];
+        SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
+        for (int i = 1, j = 0; i < 6; i++) {
+            //selected[i] = sh.getBoolean(i+"",false);
+            if (sh.getBoolean(i + "", true)) {
+                generate[j] = i;
+                j++;
+                cnt = j;
+            }
+        }
+        //generate a random number
+        Random imgselect = new Random();
+        int rand1 = imgselect.nextInt(cnt) + 1;
+        int rand2 = imgselect.nextInt(2) + 1;
+        img = (ImageView) findViewById(R.id.fullscreen_content);
+        String imgname = "i" + rand1 + "_" + rand2;
+        Toast.makeText(this, imgname, Toast.LENGTH_SHORT).show();
+        img.setImageResource(getResources().getIdentifier(imgname, "drawable", getPackageName()));
     }
 }
