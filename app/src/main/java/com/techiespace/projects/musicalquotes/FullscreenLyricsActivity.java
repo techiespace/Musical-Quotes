@@ -1,7 +1,9 @@
 package com.techiespace.projects.musicalquotes;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -50,6 +52,10 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         }
     };
     ImageView img;
+    int generate[] = new int[5];    //i don't like declaring some of them here as global and some others
+    int lyrici;                     //as local in the code, tried to use java and set a on click listener, but
+    int randSinger;                 //the compiler yells saying Variable is accessed within inner class needs to be declared final
+    String youtube[][] = new String[30][5];//do i want them as final? for now let's use global...
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -110,8 +116,8 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        getimage();
+        findViewById(R.id.youtube_btn).setOnTouchListener(mDelayHideTouchListener);
+        getImage();
     }
 
     @Override
@@ -167,13 +173,12 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    public void getimage() {
+    public void getImage() {
         int cnt = 0;
-        int generate[] = new int[5];
-        //boolean selected[]= new boolean[2];
+
+        String lyrics[][] = new String[30][5];
         SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
         for (int i = 1, j = 0; i < 6; i++) {
-            //selected[i] = sh.getBoolean(i+"",false);
             if (sh.getBoolean(i + "", true)) {
                 generate[j] = i;
                 j++;
@@ -182,11 +187,45 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         }
         //generate a random number
         Random imgselect = new Random();
-        int rand1 = imgselect.nextInt(cnt);
-        int rand2 = imgselect.nextInt(2) + 1;
+        randSinger = imgselect.nextInt(cnt);
+        int randimg = imgselect.nextInt(2) + 1;
         img = (ImageView) findViewById(R.id.fullscreen_content);
-        String imgname = "i" + generate[rand1] + "_" + rand2;
-        Toast.makeText(this, imgname, Toast.LENGTH_SHORT).show();
-        img.setImageResource(getResources().getIdentifier(imgname, "drawable", getPackageName()));
+        String imgName = "i" + generate[randSinger] + "_" + randimg;
+        img.setImageResource(getResources().getIdentifier(imgName, "drawable", getPackageName()));
+        getLyric(lyrics);
+    }
+
+    public void getLyric(String[][] lyrics) {
+        lyrics[0][0] = "Taylor Swift - You Belong With Me";
+        lyrics[0][1] = "Taylor Swift - Love Story";
+        lyrics[1][0] = "Ed Sheeran - Shape of You";
+        lyrics[1][1] = "Ed Sheeran - Castle On The Hill";
+        lyrics[2][0] = "DJ Snake - Let Me Love You ft. Justin Bieber";
+        lyrics[2][1] = "Justin Bieber - Baby ft. Ludacris";
+        lyrics[3][0] = "Passenger | Let Her Go";
+        lyrics[3][1] = "Passenger | Anywhere";
+        lyrics[4][0] = "Katy Perry - Chained To The Rhythm";
+        lyrics[4][1] = "Katy Perry - Firework";
+
+        youtube[0][0] = "VuNIsY6JdUw";
+        youtube[0][1] = "8xg3vE8Ie_E";
+        youtube[1][0] = "JGwWNGJdvx8";
+        youtube[1][1] = "K0ibBPhiaG0";
+        youtube[2][0] = "euCqAq6BRa4";
+        youtube[2][1] = "kffacxfA7G4";
+        youtube[3][0] = "RBumgq5yVrA";
+        youtube[3][1] = "cb5PalnCrhY";
+        youtube[4][0] = "Um7pMggPnug";
+        youtube[4][1] = "QGJuMBdaqIw";
+
+        Random imgselect = new Random();
+        lyrici = imgselect.nextInt(2);  //lyrics.length generates a runtime error
+        String lyric = new String(lyrics[generate[randSinger] - 1][lyrici]);    //-1 to account for the images starting from 1
+        Toast.makeText(this, lyric, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openyoutube(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + youtube[generate[randSinger] - 1][lyrici]));
+        startActivity(intent);
     }
 }

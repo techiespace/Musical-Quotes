@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -24,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     hour_x = hourOfDay;
                     minute_x = minute;
-                    Toast.makeText(MainActivity.this, hour_x + " : " + minute_x, Toast.LENGTH_SHORT).show();
                     //fire the alarm after the user sets.
                     startAlarm(hour_x, minute_x);
                 }
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startAlarm(int hour_x, int minute_x) {
-        Toast.makeText(this, "Alarm Started", Toast.LENGTH_SHORT).show();
         Intent i1 = new Intent();
         i1.setAction("com.techies.MusicalQuotesScreen");
         i1.addCategory("android.intent.category.DEFAULT");
@@ -62,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         i1.addCategory("android.intent.category.DEFAULT");
         PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, PendingIntent.FLAG_UPDATE_CURRENT);
         myAlarmManager.cancel(pd);
-        Toast.makeText(this, "Alarm Stopped", Toast.LENGTH_SHORT).show();
     }
 
     public void setAlarm(View view) {

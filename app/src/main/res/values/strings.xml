@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Musical Quotes</string>
-    <string name="set_alarm">Set Alarm</string>
+    <string name="set_alarm">Set Time</string>
     <string name="stop_alarm">Stop Alarm</string>
 
     <string name="title_activity_fullscreen_lyrics">FullscreenLyricsActivity</string>
-    <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="dummyimage">DummyImage</string>
     <string name="justin_biber">Justin Beber</string>
