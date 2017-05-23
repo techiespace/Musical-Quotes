@@ -3,6 +3,7 @@ package com.techiespace.projects.musicalquotes;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -118,6 +121,26 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.youtube_btn).setOnTouchListener(mDelayHideTouchListener);
         getImage();
+        img.setOnTouchListener(new OnSwipeTouchListener(FullscreenLyricsActivity.this) {
+            public void onSwipeTop() {
+                Toast.makeText(FullscreenLyricsActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeRight() {
+                System.exit(0);
+                Toast.makeText(FullscreenLyricsActivity.this, "right", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeLeft() {
+                System.exit(0);
+                Toast.makeText(FullscreenLyricsActivity.this, "left", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeBottom() {
+                Toast.makeText(FullscreenLyricsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     @Override
@@ -221,11 +244,19 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         Random imgselect = new Random();
         lyrici = imgselect.nextInt(2);  //lyrics.length generates a runtime error
         String lyric = new String(lyrics[generate[randSinger] - 1][lyrici]);    //-1 to account for the images starting from 1
-        Toast.makeText(this, lyric, Toast.LENGTH_SHORT).show();
+        TextView lyricTextView = (TextView) findViewById(R.id.lyricTextView);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Pacifico-Regular.ttf");
+        lyricTextView.setTypeface(font);
+        lyricTextView.setText(lyric);
+        //Toast.makeText(this, lyric, Toast.LENGTH_SHORT).show();
     }
 
     public void openyoutube(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + youtube[generate[randSinger] - 1][lyrici]));
         startActivity(intent);
     }
+
+
 }
+
+

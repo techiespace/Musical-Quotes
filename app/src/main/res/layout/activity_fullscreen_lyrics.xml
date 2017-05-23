@@ -20,6 +20,13 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
+    <View
+        android:id="@+id/opacityFilter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="@android:color/black"></View>
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,4 +54,19 @@
         android:background="@drawable/youtube"
         android:onClick="openyoutube" />
 
+    <TextView
+        android:id="@+id/lyricTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Cuz Darling I'm a Nightare Dressed Like a Daydream"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 </FrameLayout>

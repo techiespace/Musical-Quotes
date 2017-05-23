@@ -4,8 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Toast;
 
 public class SingerList extends AppCompatActivity {
 
@@ -20,19 +18,6 @@ public class SingerList extends AppCompatActivity {
         ch3 = (CheckBox) findViewById(R.id.checkBox3);
         ch4 = (CheckBox) findViewById(R.id.checkBox4);
         ch5 = (CheckBox) findViewById(R.id.checkBox5);
-        ch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(SingerList.this, "Taylor Swift", Toast.LENGTH_SHORT).show();
-            }
-        });
-        ch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(SingerList.this, "Ed Sheeren", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @Override
