@@ -248,12 +248,12 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Pacifico-Regular.ttf");
         lyricTextView.setTypeface(font);
         lyricTextView.setText(lyric);
-        //Toast.makeText(this, lyric, Toast.LENGTH_SHORT).show();
     }
 
     public void openyoutube(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + youtube[generate[randSinger] - 1][lyrici]));
         startActivity(intent);
+        FullscreenLyricsActivity.this.finish();
     }
 
 
