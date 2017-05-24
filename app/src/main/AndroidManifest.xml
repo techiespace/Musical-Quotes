@@ -33,7 +33,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen_lyrics"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".SingerList"></activity>
+        <activity
+            android:name=".SingerList"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

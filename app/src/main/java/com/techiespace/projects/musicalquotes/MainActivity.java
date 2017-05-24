@@ -5,8 +5,11 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TimePicker;
 
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
     }
 
     public void startAlarm(int hour_x, int minute_x) {
@@ -77,14 +79,50 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_PRIVATE);
-        SharedPreferences.Editor myedit = sh.edit();
-        myedit.putInt("h", hour_x);
-        myedit.putInt("m", minute_x);
-        myedit.apply();     //`commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background
+        SharedPreferences.Editor myEdit = sh.edit();
+        myEdit.putInt("h", hour_x);
+        myEdit.putInt("m", minute_x);
+        myEdit.apply();     //`commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background
     }
 
     public void singerActivity(View view) {
-        Intent singerlistintent = new Intent(this, SingerList.class);
-        startActivity(singerlistintent);
+        Intent singerListIntent = new Intent(this, SingerList.class);
+        startActivity(singerListIntent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.feedback:
+                //send feedback email
+                Intent iEmail = new Intent(Intent.ACTION_SEND);
+                iEmail.setData(Uri.parse("email"));
+                String[] emailAdd = {"shreyas.techiespace@gmail.com"};
+                iEmail.putExtra(Intent.EXTRA_EMAIL, emailAdd);
+                iEmail.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Musical Quotes");
+                iEmail.setType("message/rfc822");   //what does this mean?
+                Intent iLaunchEmail = Intent.createChooser(iEmail, "Launch Email");
+                startActivity(iLaunchEmail);
+                return true;
+            case R.id.suggest:
+                //send suggest MusiQuote email
+                Intent iSuggest = new Intent(Intent.ACTION_SEND);
+                iSuggest.setData(Uri.parse("email"));
+                String[] suggestAdd = {"shreyas.techiespace@gmail.com"};
+                iSuggest.putExtra(Intent.EXTRA_EMAIL, suggestAdd);
+                iSuggest.putExtra(Intent.EXTRA_SUBJECT, "Suggestion to add to a Musical Quote");
+                iSuggest.setType("message/rfc822");   //what does this mean?
+                Intent iSuggestEmail = Intent.createChooser(iSuggest, "Launch Email");
+                startActivity(iSuggestEmail);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
