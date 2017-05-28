@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -64,7 +65,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAlarm(View view) {
-        new TimePickerDialog(MainActivity.this, kTimePickerListener, hour_x, minute_x, false).show();
+        int cnt = 0;
+        SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
+        for (int i = 1; i < 6; i++) {    //5 checkboxes
+            if (sh.getBoolean(i + "", false)) {
+                cnt++;
+            }
+        }
+        if (cnt == 0)
+            Toast.makeText(this, "Select at least one Singer from Singer List", Toast.LENGTH_LONG).show();
+        else
+            new TimePickerDialog(MainActivity.this, kTimePickerListener, hour_x, minute_x, false).show();
     }
 
     @Override

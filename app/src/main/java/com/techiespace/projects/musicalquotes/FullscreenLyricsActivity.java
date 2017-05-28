@@ -103,7 +103,17 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        int cnt = 0;
+        SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
+        for (int i = 1; i < 6; i++) {    //5 checkboxes
+            if (sh.getBoolean(i + "", false)) {
+                cnt++;
+            }
+        }
+        if (cnt == 0) {
+            Toast.makeText(this, "Select at least one Singer from Singer List", Toast.LENGTH_LONG).show();//toast not working
+            System.exit(0);
+        }
         setContentView(R.layout.activity_fullscreen_lyrics);
 
         mVisible = true;
@@ -126,25 +136,22 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         getImage();
         img.setOnTouchListener(new OnSwipeTouchListener(FullscreenLyricsActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(FullscreenLyricsActivity.this, "top", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeRight() {
                 System.exit(0);
-                Toast.makeText(FullscreenLyricsActivity.this, "right", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeLeft() {
                 System.exit(0);
-                Toast.makeText(FullscreenLyricsActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeBottom() {
-                Toast.makeText(FullscreenLyricsActivity.this, "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
