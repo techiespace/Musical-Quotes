@@ -43,6 +43,20 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
     ImageView img;
     int generate[] = new int[5];    //i don't like declaring some of them here as global and some others
     int lyrici;                     //as local in the code, tried to use java and set a on click listener, but
@@ -83,20 +97,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         @Override
         public void run() {
             hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
         }
     };
 
@@ -201,10 +201,9 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
 
     public void getImage() {
         int cnt = 0;
-
         String lyrics[][] = new String[30][5];
         SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
-        for (int i = 1, j = 0; i < 6; i++) {
+        for (int i = 1, j = 0; i < 6; i++) {    //5 checkboxes
             if (sh.getBoolean(i + "", true)) {
                 generate[j] = i;
                 j++;
@@ -222,6 +221,7 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
     }
 
     public void getLyric(String[][] lyrics) {
+        int cntPerSinger = 0;
         lyrics[0][0] = "Taylor Swift - You Belong With Me";
         lyrics[0][1] = "Taylor Swift - Love Story";
         lyrics[1][0] = "Ed Sheeran - Shape of You";
@@ -244,8 +244,12 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         youtube[4][0] = "Um7pMggPnug";
         youtube[4][1] = "QGJuMBdaqIw";
 
-        Random imgselect = new Random();
-        lyrici = imgselect.nextInt(2);  //lyrics.length generates a runtime error
+        Random imgSelect = new Random();
+        for (int i = 0; i < 5; i++) {    //assume 10 images per singer
+            if (lyrics[generate[randSinger] - 1][i] != null)
+                cntPerSinger++;
+        }
+        lyrici = imgSelect.nextInt(cntPerSinger);  //lyrics.length generates a runtime error
         String lyric = new String(lyrics[generate[randSinger] - 1][lyrici]);    //-1 to account for the images starting from 1
         TextView lyricTextView = (TextView) findViewById(R.id.lyricTextView);
         Typeface font = Typeface.createFromAsset(getAssets(), "Pacifico-Regular.ttf");
