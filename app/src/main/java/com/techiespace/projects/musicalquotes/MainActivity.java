@@ -132,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent iSuggestEmail = Intent.createChooser(iSuggest, "Launch Email");
                 startActivity(iSuggestEmail);
                 return true;
+            case R.id.gitHub:
+                //Open Musical Quotes GitHub repo
+                Intent iGitHub = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/techiespace/Musical-Quotes"));
+                startActivity(iGitHub);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

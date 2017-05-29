@@ -24,7 +24,7 @@
         android:id="@+id/opacityFilter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.6"
+        android:alpha="0.55"
         android:background="@android:color/black"></View>
 
     <FrameLayout
@@ -48,8 +48,8 @@
     <Button
         android:id="@+id/youtube_btn"
         style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_width="98dp"
-        android:layout_height="90dp"
+        android:layout_width="74dp"
+        android:layout_height="70dp"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@drawable/youtube"
         android:onClick="openyoutube" />
@@ -57,11 +57,11 @@
     <TextView
         android:id="@+id/lyricTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="277dp"
         android:layout_marginBottom="70dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="Cuz Darling I'm a Nightare Dressed Like a Daydream"
@@ -69,4 +69,26 @@
         android:textColor="@android:color/holo_green_light"
         android:textSize="30sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/songTextView"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="70dp"
+        android:gravity="center_horizontal"
+        android:text="Singer"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="90dp"
+        android:gravity="center_horizontal"
+        android:text="Song"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="18sp" />
 </FrameLayout>

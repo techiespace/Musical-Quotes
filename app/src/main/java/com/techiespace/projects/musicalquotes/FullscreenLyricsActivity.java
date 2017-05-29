@@ -43,20 +43,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
     ImageView img;
     int generate[] = new int[5];    //i don't like declaring some of them here as global and some others
     int lyrici;                     //as local in the code, tried to use java and set a on click listener, but
@@ -97,6 +83,20 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         @Override
         public void run() {
             hide();
+        }
+    };
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
         }
     };
 
@@ -229,25 +229,33 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
 
     public void getLyric(String[][] lyrics) {
         int cntPerSinger = 0;
-        lyrics[0][0] = "Taylor Swift - You Belong With Me";
+        lyrics[0][0] = "Wondering if I dogged a bullet or just lost the love of my life";
         lyrics[0][1] = "Taylor Swift - Love Story";
+
         lyrics[1][0] = "Ed Sheeran - Shape of You";
         lyrics[1][1] = "Ed Sheeran - Castle On The Hill";
+
         lyrics[2][0] = "DJ Snake - Let Me Love You ft. Justin Bieber";
         lyrics[2][1] = "Justin Bieber - Baby ft. Ludacris";
+
         lyrics[3][0] = "Passenger | Let Her Go";
         lyrics[3][1] = "Passenger | Anywhere";
+
         lyrics[4][0] = "Katy Perry - Chained To The Rhythm";
         lyrics[4][1] = "Katy Perry - Firework";
 
         youtube[0][0] = "VuNIsY6JdUw";
         youtube[0][1] = "8xg3vE8Ie_E";
+
         youtube[1][0] = "JGwWNGJdvx8";
         youtube[1][1] = "K0ibBPhiaG0";
+
         youtube[2][0] = "euCqAq6BRa4";
         youtube[2][1] = "kffacxfA7G4";
+
         youtube[3][0] = "RBumgq5yVrA";
         youtube[3][1] = "cb5PalnCrhY";
+
         youtube[4][0] = "Um7pMggPnug";
         youtube[4][1] = "QGJuMBdaqIw";
 
