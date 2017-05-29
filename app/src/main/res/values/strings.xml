@@ -15,4 +15,6 @@
     <string name="suggest_a_musiQuote">Suggest a MusiQuote</string>
     <string name="feedback">Feedback</string>
     <string name="gitHub">GitHub</string>
+    <string name="song">Song</string>
+    <string name="singer">Singer</string>
 </resources>

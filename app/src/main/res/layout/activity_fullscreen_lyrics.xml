@@ -52,7 +52,7 @@
         android:layout_height="70dp"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@drawable/youtube"
-        android:onClick="openyoutube" />
+        android:onClick="openYoutube" />
 
     <TextView
         android:id="@+id/lyricTextView"
@@ -71,24 +71,24 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/songTextView"
+        android:id="@+id/singerTextView"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="70dp"
         android:gravity="center_horizontal"
-        android:text="Singer"
+        android:text="@string/singer"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/songTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="90dp"
         android:gravity="center_horizontal"
-        android:text="Song"
+        android:text="@string/song"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="18sp" />
 </FrameLayout>

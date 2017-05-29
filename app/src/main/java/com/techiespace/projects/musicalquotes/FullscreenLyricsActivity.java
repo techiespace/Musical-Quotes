@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -47,7 +46,7 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
     int generate[] = new int[5];    //i don't like declaring some of them here as global and some others
     int lyrici;                     //as local in the code, tried to use java and set a on click listener, but
     int randSinger;                 //the compiler yells saying Variable is accessed within inner class needs to be declared final
-    String youtube[][] = new String[30][5];//do i want them as final? for now let's use global...
+    lyricsc lyricObj[][] = new lyricsc[30][5];
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -152,7 +151,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -208,7 +206,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
 
     public void getImage() {
         int cnt = 0;
-        String lyrics[][] = new String[30][5];
         SharedPreferences sh = getSharedPreferences("MyOwnShared", MODE_APPEND);
         for (int i = 1, j = 0; i < 6; i++) {    //5 checkboxes
             if (sh.getBoolean(i + "", true)) {
@@ -224,52 +221,92 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.fullscreen_content);
         String imgName = "i" + generate[randSinger] + "_" + randimg;
         img.setImageResource(getResources().getIdentifier(imgName, "drawable", getPackageName()));
-        getLyric(lyrics);
+        getLyricDetails();
     }
 
-    public void getLyric(String[][] lyrics) {
+    public void getLyricDetails() {
         int cntPerSinger = 0;
-        lyrics[0][0] = "Wondering if I dogged a bullet or just lost the love of my life";
-        lyrics[0][1] = "Taylor Swift - Love Story";
 
-        lyrics[1][0] = "Ed Sheeran - Shape of You";
-        lyrics[1][1] = "Ed Sheeran - Castle On The Hill";
+        lyricObj[0][0] = new lyricsc();
+        lyricObj[0][0].setLyric("Wondering if I dogged a bullet or just lost the love of my life");
+        lyricObj[0][0].setSong("I don't wanna live forever");
+        lyricObj[0][0].setSinger("Taylor Swift");
+        lyricObj[0][0].setYoutube("VuNIsY6JdUw");
 
-        lyrics[2][0] = "DJ Snake - Let Me Love You ft. Justin Bieber";
-        lyrics[2][1] = "Justin Bieber - Baby ft. Ludacris";
+        lyricObj[0][1] = new lyricsc();
+        lyricObj[0][1].setLyric("Taylor Swift - Love Story");
+        lyricObj[0][1].setSong("I don't wanna live forever");
+        lyricObj[0][1].setSinger("Taylor Swift");
+        lyricObj[0][1].setYoutube("8xg3vE8Ie_E");
 
-        lyrics[3][0] = "Passenger | Let Her Go";
-        lyrics[3][1] = "Passenger | Anywhere";
+        lyricObj[1][0] = new lyricsc();
+        lyricObj[1][0].setLyric("Ed Sheeran - Shape of You");
+        lyricObj[1][0].setSong("I don't wanna live forever");
+        lyricObj[1][0].setSinger("Ed Sheerin");
+        lyricObj[1][0].setYoutube("JGwWNGJdvx8");
 
-        lyrics[4][0] = "Katy Perry - Chained To The Rhythm";
-        lyrics[4][1] = "Katy Perry - Firework";
+        lyricObj[1][1] = new lyricsc();
+        lyricObj[1][1].setLyric("Ed Sheeran - Castle On The Hill");
+        lyricObj[1][1].setSong("I don't wanna live forever");
+        lyricObj[1][1].setSinger("Ed Sheerin");
+        lyricObj[1][1].setYoutube("K0ibBPhiaG0");
 
-        youtube[0][0] = "VuNIsY6JdUw";
-        youtube[0][1] = "8xg3vE8Ie_E";
 
-        youtube[1][0] = "JGwWNGJdvx8";
-        youtube[1][1] = "K0ibBPhiaG0";
+        lyricObj[2][0] = new lyricsc();
+        lyricObj[2][0].setLyric("DJ Snake - Let Me Love You ft. Justin Bieber");
+        lyricObj[2][0].setSong("I don't wanna live forever");
+        lyricObj[2][0].setSinger("Justin Bieber");
+        lyricObj[2][0].setYoutube("euCqAq6BRa4");
 
-        youtube[2][0] = "euCqAq6BRa4";
-        youtube[2][1] = "kffacxfA7G4";
+        lyricObj[2][1] = new lyricsc();
+        lyricObj[2][1].setLyric("Justin Bieber - Baby ft. Ludacris");
+        lyricObj[2][1].setSong("I don't wanna live forever");
+        lyricObj[2][1].setSinger("Justin Bieber");
+        lyricObj[2][1].setYoutube("kffacxfA7G4");
 
-        youtube[3][0] = "RBumgq5yVrA";
-        youtube[3][1] = "cb5PalnCrhY";
+        lyricObj[3][0] = new lyricsc();
+        lyricObj[3][0].setLyric("Passenger | Let Her Go");
+        lyricObj[3][0].setSong("I don't wanna live forever");
+        lyricObj[3][0].setSinger("Passenger");
+        lyricObj[3][0].setYoutube("RBumgq5yVrA");
 
-        youtube[4][0] = "Um7pMggPnug";
-        youtube[4][1] = "QGJuMBdaqIw";
+        lyricObj[3][1] = new lyricsc();
+        lyricObj[3][1].setLyric("Passenger | Anywhere");
+        lyricObj[3][1].setSong("I don't wanna live forever");
+        lyricObj[3][1].setSinger("Passenger");
+        lyricObj[3][1].setYoutube("cb5PalnCrhY");
+
+        lyricObj[4][0] = new lyricsc();
+        lyricObj[4][0].setLyric("Katy Perry - Chained To The Rhythm");
+        lyricObj[4][0].setSong("I don't wanna live forever");
+        lyricObj[4][0].setSinger("Katy Perry");
+        lyricObj[4][0].setYoutube("Um7pMggPnug");
+
+        lyricObj[4][1] = new lyricsc();
+        lyricObj[4][1].setLyric("Katy Perry - Firework");
+        lyricObj[4][1].setSong("I don't wanna live forever");
+        lyricObj[4][1].setSinger("Katy Perry");
+        lyricObj[4][1].setYoutube("QGJuMBdaqIw");
 
         Random imgSelect = new Random();
         for (int i = 0; i < 5; i++) {    //assume 10 images per singer
-            if (lyrics[generate[randSinger] - 1][i] != null)
+            if (lyricObj[generate[randSinger] - 1][i] != null)
                 cntPerSinger++;
         }
         lyrici = imgSelect.nextInt(cntPerSinger);  //lyrics.length generates a runtime error
-        String lyric = new String(lyrics[generate[randSinger] - 1][lyrici]);    //-1 to account for the images starting from 1
+        String lyric = new String(lyricObj[generate[randSinger] - 1][lyrici].getLyric());    //-1 to account for the images starting from 1
+        String song = new String(lyricObj[generate[randSinger] - 1][lyrici].getSong());
+        String singer = new String(lyricObj[generate[randSinger] - 1][lyrici].getSinger());
         TextView lyricTextView = (TextView) findViewById(R.id.lyricTextView);
+        TextView songTextView = (TextView) findViewById(R.id.songTextView);
+        TextView singerTextView = (TextView) findViewById(R.id.singerTextView);
+
+
         Typeface font = Typeface.createFromAsset(getAssets(), "Pacifico-Regular.ttf");
         lyricTextView.setTypeface(font);
         lyricTextView.setText(lyric);
+        songTextView.setText(song);
+        singerTextView.setText(singer);
     }
 
     private boolean isNetworkAvailable() {
@@ -278,9 +315,10 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-    public void openyoutube(View view) {
+
+    public void openYoutube(View view) {
         if (isNetworkAvailable()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + youtube[generate[randSinger] - 1][lyrici]));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + lyricObj[generate[randSinger] - 1][lyrici].getYoutube()));
             startActivity(intent);
             FullscreenLyricsActivity.this.finish();
         } else {
@@ -288,7 +326,45 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         }
     }
 
+    //String youtube[][] = new String[30][5];//do i want them as final? for now let's use global...
+    private class lyricsc {
+        String lyric;
+        String youtube;
+        String singer;
+        String song;
 
+        private String getSinger() {
+            return singer;
+        }
+
+        private void setSinger(String singer) {
+            this.singer = singer;
+        }
+
+        private String getYoutube() {
+            return youtube;
+        }
+
+        private void setYoutube(String youtube) {
+            this.youtube = youtube;
+        }
+
+        private String getLyric() {
+            return lyric;
+        }
+
+        private void setLyric(String lyric) {
+            this.lyric = lyric;
+        }
+
+        private String getSong() {
+            return song;
+        }
+
+        private void setSong(String song) {
+            this.song = song;
+        }
+    }
 }
 
 
