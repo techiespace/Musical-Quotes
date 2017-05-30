@@ -42,6 +42,20 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
     ImageView img;
     int generate[] = new int[5];    //i don't like declaring some of them here as global and some others
     int lyrici;                     //as local in the code, tried to use java and set a on click listener, but
@@ -82,20 +96,6 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         @Override
         public void run() {
             hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
         }
     };
 
@@ -228,63 +228,71 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         int cntPerSinger = 0;
 
         lyricObj[0][0] = new lyricsc();
-        lyricObj[0][0].setLyric("Wondering if I dogged a bullet or just lost the love of my life");
+        lyricObj[0][0].setLyric("Wondering if I dodged a bullet or just lost the love of my life");
         lyricObj[0][0].setSong("I don't wanna live forever");
         lyricObj[0][0].setSinger("Taylor Swift");
-        lyricObj[0][0].setYoutube("VuNIsY6JdUw");
+        lyricObj[0][0].setYoutube("7F37r50VUTQ");
 
         lyricObj[0][1] = new lyricsc();
-        lyricObj[0][1].setLyric("Taylor Swift - Love Story");
-        lyricObj[0][1].setSong("I don't wanna live forever");
+        lyricObj[0][1].setLyric("Words... How little they mean, when you're a little too late");
+        lyricObj[0][1].setSong("Sad Beautiful Tragic");
         lyricObj[0][1].setSinger("Taylor Swift");
-        lyricObj[0][1].setYoutube("8xg3vE8Ie_E");
+        lyricObj[0][1].setYoutube("zmhOVonuOcU");
 
         lyricObj[1][0] = new lyricsc();
-        lyricObj[1][0].setLyric("Ed Sheeran - Shape of You");
-        lyricObj[1][0].setSong("I don't wanna live forever");
-        lyricObj[1][0].setSinger("Ed Sheerin");
-        lyricObj[1][0].setYoutube("JGwWNGJdvx8");
+        lyricObj[1][0].setLyric("It's ok to be not ok.");
+        lyricObj[1][0].setSong("Who You Are");
+        lyricObj[1][0].setSinger("Ed Sheeran");
+        lyricObj[1][0].setYoutube("BjiEaSInikE");
 
         lyricObj[1][1] = new lyricsc();
-        lyricObj[1][1].setLyric("Ed Sheeran - Castle On The Hill");
-        lyricObj[1][1].setSong("I don't wanna live forever");
-        lyricObj[1][1].setSinger("Ed Sheerin");
-        lyricObj[1][1].setYoutube("K0ibBPhiaG0");
+        lyricObj[1][1].setLyric("Your love was handmade for somebody like me");
+        lyricObj[1][1].setSong("Shape of You");
+        lyricObj[1][1].setSinger("Ed Sheeran");
+        lyricObj[1][1].setYoutube("_dK2tDK9grQ");
 
 
         lyricObj[2][0] = new lyricsc();
-        lyricObj[2][0].setLyric("DJ Snake - Let Me Love You ft. Justin Bieber");
-        lyricObj[2][0].setSong("I don't wanna live forever");
+        lyricObj[2][0].setLyric("Never say never");
+        lyricObj[2][0].setSong("Never say never");
         lyricObj[2][0].setSinger("Justin Bieber");
-        lyricObj[2][0].setYoutube("euCqAq6BRa4");
+        lyricObj[2][0].setYoutube("ZxkcBxHwFuE");
 
         lyricObj[2][1] = new lyricsc();
-        lyricObj[2][1].setLyric("Justin Bieber - Baby ft. Ludacris");
-        lyricObj[2][1].setSong("I don't wanna live forever");
+        lyricObj[2][1].setLyric("Oh baby, I know lovin’ you ain’t easy\n" +
+                "But it sure is worth a try");
+        lyricObj[2][1].setSong("Die in Your Arms");
         lyricObj[2][1].setSinger("Justin Bieber");
-        lyricObj[2][1].setYoutube("kffacxfA7G4");
+        lyricObj[2][1].setYoutube("YuHQn4BrkL8");
 
         lyricObj[3][0] = new lyricsc();
-        lyricObj[3][0].setLyric("Passenger | Let Her Go");
-        lyricObj[3][0].setSong("I don't wanna live forever");
+        lyricObj[3][0].setLyric("Or through every emotion\n" +
+                "When you know that they don't care\n" +
+                "Darling, that's when I'm with you\n" +
+                "Oh, I'll go with you anywhere");
+        lyricObj[3][0].setSong("Anywhere");
         lyricObj[3][0].setSinger("Passenger");
-        lyricObj[3][0].setYoutube("RBumgq5yVrA");
+        lyricObj[3][0].setYoutube("cb5PalnCrhY");
 
         lyricObj[3][1] = new lyricsc();
-        lyricObj[3][1].setLyric("Passenger | Anywhere");
-        lyricObj[3][1].setSong("I don't wanna live forever");
+        lyricObj[3][1].setLyric("Only hate the road when you're missing home\n" +
+                "Only know you love her when you let her go");
+        lyricObj[3][1].setSong("Let Her Go");
         lyricObj[3][1].setSinger("Passenger");
-        lyricObj[3][1].setYoutube("cb5PalnCrhY");
+        lyricObj[3][1].setYoutube("Ginx7WKq5GE");
 
         lyricObj[4][0] = new lyricsc();
-        lyricObj[4][0].setLyric("Katy Perry - Chained To The Rhythm");
-        lyricObj[4][0].setSong("I don't wanna live forever");
+        lyricObj[4][0].setLyric("I went from zero to my own hero");
+        lyricObj[4][0].setSong("Roar");
         lyricObj[4][0].setSinger("Katy Perry");
-        lyricObj[4][0].setYoutube("Um7pMggPnug");
+        lyricObj[4][0].setYoutube("CevxZvSJLk8");
 
         lyricObj[4][1] = new lyricsc();
-        lyricObj[4][1].setLyric("Katy Perry - Firework");
-        lyricObj[4][1].setSong("I don't wanna live forever");
+        lyricObj[4][1].setLyric("'Cause baby you're a firework\n" +
+                "Come on show 'em what your worth\n" +
+                "Make 'em go \"Oh, oh, oh!\"\n" +
+                "As you shoot across the sky-y-y");
+        lyricObj[4][1].setSong("Firework");
         lyricObj[4][1].setSinger("Katy Perry");
         lyricObj[4][1].setYoutube("QGJuMBdaqIw");
 
@@ -366,5 +374,3 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         }
     }
 }
-
-
