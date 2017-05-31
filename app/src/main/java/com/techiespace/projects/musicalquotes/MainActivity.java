@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             calendar.add(Calendar.DATE, 1);
         }
         myAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pd);    //Sets an inexact repeating alarm
+        Toast.makeText(this, "A beautiful quote on it's way on "+Calendar.HOUR+":"+Calendar.MINUTE+" "+Calendar.AM_PM, Toast.LENGTH_SHORT).show();
     }
 
     public void stopAlarm(View view) {
