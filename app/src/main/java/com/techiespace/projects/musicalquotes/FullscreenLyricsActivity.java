@@ -1,6 +1,8 @@
 package com.techiespace.projects.musicalquotes;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -222,6 +225,37 @@ public class FullscreenLyricsActivity extends AppCompatActivity {
         String imgName = "i" + generate[randSinger] + "_" + randimg;
         img.setImageResource(getResources().getIdentifier(imgName, "drawable", getPackageName()));
         getLyricDetails();
+
+        //cancel and reset alarm
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(sender);
+
+        Intent i1 = new Intent();
+        i1.setAction("com.techies.MusicalQuotesScreen");
+        i1.addCategory("android.intent.category.DEFAULT");
+        PendingIntent pd = PendingIntent.getBroadcast(this, 0, i1, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        SharedPreferences sh1 = getSharedPreferences("MyOwnShared", MODE_APPEND);
+        SharedPreferences.Editor myEdit = sh.edit();
+        myEdit.putInt("toggleMin", 2);
+        int hour_x = sh1.getInt("h", 0);
+        int minute_x = sh1.getInt("m", 0);
+
+        // Set the alarm to start at approximately 6:00 p.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, hour_x);
+        calendar.set(Calendar.MINUTE, minute_x);
+        if (calendar.before(Calendar.getInstance())) {   //fixed the immediate trigger for past time problem
+            calendar.add(Calendar.DATE, 1);
+        }
+        AlarmManager myAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        myAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pd);    //Sets an inexact repeating alarm
+        Toast.makeText(this, "A beautiful quote on it's way on " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + calendar.get(Calendar.AM_PM), Toast.LENGTH_SHORT).show();
+
     }
 
     public void getLyricDetails() {
